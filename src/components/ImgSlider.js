@@ -1,9 +1,10 @@
+import React from "react";
 import styled from "styled-components";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 
-const ImgSlider = (props) => {
+const ImgSlider = () => {
   let settings = {
     dots: true,
     infinite: true,
@@ -12,6 +13,7 @@ const ImgSlider = (props) => {
     slidesToScroll: 1,
     autoplay: true,
   };
+
   return (
     <Carousel {...settings}>
       <Wrap>
@@ -43,7 +45,6 @@ const ImgSlider = (props) => {
 
 const Carousel = styled(Slider)`
   margin-top: 20px;
-
   & > button {
     opacity: 0;
     height: 100%;
@@ -59,14 +60,12 @@ const Carousel = styled(Slider)`
   ul li button {
     &:before {
       font-size: 10px;
-      color: rgb(150, 158, 171);
+      color: rgb(150, 150, 171);
     }
   }
-
   li.slick-active button:before {
     color: white;
   }
-
   .slick-list {
     overflow: initial;
   }
@@ -74,7 +73,6 @@ const Carousel = styled(Slider)`
   .slick-prev {
     left: -75px;
   }
-
   .slick-next {
     right: -75px;
   }
@@ -87,9 +85,10 @@ const Wrap = styled.div`
 
   a {
     border-radius: 4px;
-    box-shadow: rgb(0 0 0 / 69%) 0px 26px 30px -10px,
-      rgb(0 0 0 / 73%) 0px 16px 10px -10px;
+    box-shadow: rgb(0 0 0 /69%) 0px 26px 30px -10px,
+      rgba(0, 0, 0/73%) 0px 16px 10px -10px;
     cursor: pointer;
+
     display: block;
     position: relative;
     padding: 4px;
@@ -101,7 +100,7 @@ const Wrap = styled.div`
 
     &:hover {
       padding: 0;
-      border: 4px solid rgba(249, 249, 249, 0.8);
+      border: 4px solid white;
       transition-duration: 300ms;
     }
   }

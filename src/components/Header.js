@@ -1,10 +1,12 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { auth } from "../firebase";
+import { provider } from "../firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { auth, provider } from "../firebase";
 import {
   selectUserName,
+  selectUserEmail,
   selectUserPhoto,
   setUserLoginDetails,
   setSignOutState,
@@ -42,7 +44,7 @@ const Header = (props) => {
           dispatch(setSignOutState());
           history.push("/");
         })
-        .catch((err) => alert(err.message));
+        .catch((error) => alert(error.message));
     }
   };
 
@@ -59,11 +61,11 @@ const Header = (props) => {
   return (
     <Nav>
       <Logo>
-        <img src="/images/logo.svg" alt="Disney+" />
+        <img src="/images/logo.svg" alt="" />
       </Logo>
 
       {!userName ? (
-        <Login onClick={handleAuth}>Login</Login>
+        <Login onClick={handleAuth}>Login </Login>
       ) : (
         <>
           <NavMenu>
@@ -92,6 +94,7 @@ const Header = (props) => {
               <span>SERIES</span>
             </a>
           </NavMenu>
+
           <SignOut>
             <UserImg src={userPhoto} alt={userName} />
             <DropDown>
@@ -135,16 +138,16 @@ const Logo = styled.a`
 
 const NavMenu = styled.div`
   align-items: center;
+
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: nowrap;
   height: 100%;
   justify-content: flex-end;
   margin: 0px;
   padding: 0px;
   position: relative;
-  margin-right: auto;
   margin-left: 25px;
-
+  margin-right: auto;
   a {
     display: flex;
     align-items: center;
@@ -193,9 +196,9 @@ const NavMenu = styled.div`
     }
   }
 
-  /* @media (max-width: 768px) {
+  @media (max-width: 768px) {
     display: none;
-  } */
+  }
 `;
 
 const Login = styled.a`
@@ -203,19 +206,21 @@ const Login = styled.a`
   padding: 8px 16px;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  border: 1px solid #f9f9f9;
+  border: 1px solid white;
   border-radius: 4px;
   transition: all 0.2s ease 0s;
-
+  cursor: pointer;
   &:hover {
     background-color: #f9f9f9;
     color: #000;
+    cursor: pointer;
     border-color: transparent;
   }
 `;
 
 const UserImg = styled.img`
   height: 100%;
+  border-radius: 50%;
 `;
 
 const DropDown = styled.div`
@@ -225,7 +230,6 @@ const DropDown = styled.div`
   background: rgb(19, 19, 19);
   border: 1px solid rgba(151, 151, 151, 0.34);
   border-radius: 4px;
-  box-shadow: rgb(0 0 0 / 50%) 0px 0px 18px 0px;
   padding: 10px;
   font-size: 14px;
   letter-spacing: 3px;
@@ -239,18 +243,13 @@ const SignOut = styled.div`
   width: 48px;
   display: flex;
   cursor: pointer;
-  align-items: center;
   justify-content: center;
-
-  ${UserImg} {
-    border-radius: 50%;
-    width: 100%;
-    height: 100%;
-  }
+  align-items: center;
 
   &:hover {
     ${DropDown} {
       opacity: 1;
+
       transition-duration: 1s;
     }
   }

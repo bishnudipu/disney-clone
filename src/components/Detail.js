@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import db from "../firebase";
+import { useParams } from "react-router-dom";
 
-const Detail = (props) => {
-  const { id } = useParams();
+const Detail = () => {
   const [detailData, setDetailData] = useState({});
-
+  const { id } = useParams();
   useEffect(() => {
     db.collection("movies")
       .doc(id)
@@ -14,24 +13,20 @@ const Detail = (props) => {
       .then((doc) => {
         if (doc.exists) {
           setDetailData(doc.data());
-        } else {
-          console.log("no such document in firebase 🔥");
-        }
+        } else console.log("no data in firebase");
       })
-      .catch((error) => {
-        console.log("Error getting document:", error);
-      });
+      .catch((err) => alert(err.message));
   }, [id]);
-
   return (
     <Container>
       <Background>
-        <img alt={detailData.title} src={detailData.backgroundImg} />
+        <img src={detailData.backgroundImg} alt={detailData.titleImg} />
       </Background>
 
-      <ImageTitle>
-        <img alt={detailData.title} src={detailData.titleImg} />
-      </ImageTitle>
+      <ImgTitle>
+        <img src={detailData.title} alt={detailData.titleImg} />
+      </ImgTitle>
+
       <ContentMeta>
         <Controls>
           <Player>
@@ -46,14 +41,16 @@ const Detail = (props) => {
             <span />
             <span />
           </AddList>
+
           <GroupWatch>
             <div>
               <img src="/images/group-icon.png" alt="" />
             </div>
           </GroupWatch>
         </Controls>
-        <SubTitle>{detailData.subTitle}</SubTitle>
-        <Description>{detailData.description}</Description>
+
+        <SubTitle>{detailData.subTitle} </SubTitle>
+        <Description>{detailData.description} </Description>
       </ContentMeta>
     </Container>
   );
@@ -61,7 +58,7 @@ const Detail = (props) => {
 
 const Container = styled.div`
   position: relative;
-  min-height: calc(100vh-250px);
+  min-height: calc(100vh - 250px);
   overflow-x: hidden;
   display: block;
   top: 72px;
@@ -77,7 +74,7 @@ const Background = styled.div`
   z-index: -1;
 
   img {
-    width: 100vw;
+    width: 100%;
     height: 100vh;
 
     @media (max-width: 768px) {
@@ -86,12 +83,13 @@ const Background = styled.div`
   }
 `;
 
-const ImageTitle = styled.div`
+const ImgTitle = styled.div`
   align-items: flex-end;
   display: flex;
   -webkit-box-pack: start;
   justify-content: flex-start;
   margin: 0px auto;
+
   height: 30vw;
   min-height: 170px;
   padding-bottom: 24px;
@@ -111,7 +109,7 @@ const ContentMeta = styled.div`
 const Controls = styled.div`
   align-items: center;
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: nowrap;
   margin: 24px 0px;
   min-height: 56px;
 `;
@@ -122,25 +120,23 @@ const Player = styled.button`
   padding: 0px 24px;
   height: 56px;
   border-radius: 4px;
+  align-items: center;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   letter-spacing: 1.8px;
-  text-align: center;
   text-transform: uppercase;
-  background: rgb (249, 249, 249);
+  background: rgb(249, 249, 249);
   border: none;
   color: rgb(0, 0, 0);
 
   img {
     width: 32px;
   }
-
   &:hover {
     background: rgb(198, 198, 198);
   }
-
   @media (max-width: 768px) {
     height: 45px;
     padding: 0px 12px;
@@ -156,7 +152,6 @@ const Player = styled.button`
 const Trailer = styled(Player)`
   background: rgba(0, 0, 0, 0.3);
   border: 1px solid rgb(249, 249, 249);
-  color: rgb(249, 249, 249);
 `;
 
 const AddList = styled.div`
@@ -173,8 +168,7 @@ const AddList = styled.div`
 
   span {
     background-color: rgb(249, 249, 249);
-    display: inline-block;
-
+    display: inline-black;
     &:first-child {
       height: 2px;
       transform: translate(1px, 0px) rotate(0deg);
@@ -183,12 +177,11 @@ const AddList = styled.div`
 
     &:nth-child(2) {
       height: 16px;
-      transform: translateX(-8px) rotate(0deg);
+      transform: translate(-8px) rotate(0deg);
       width: 2px;
     }
   }
 `;
-
 const GroupWatch = styled.div`
   height: 44px;
   width: 44px;
@@ -198,7 +191,6 @@ const GroupWatch = styled.div`
   align-items: center;
   cursor: pointer;
   background: white;
-
   div {
     height: 40px;
     width: 40px;
@@ -210,7 +202,6 @@ const GroupWatch = styled.div`
     }
   }
 `;
-
 const SubTitle = styled.div`
   color: rgb(249, 249, 249);
   font-size: 15px;
@@ -220,11 +211,10 @@ const SubTitle = styled.div`
     font-size: 12px;
   }
 `;
-
 const Description = styled.div`
   line-height: 1.4;
   font-size: 20px;
-  padding: 16px 0px;
+  padding: 16px, 0px;
   color: rgb(249, 249, 249);
 
   @media (max-width: 768px) {

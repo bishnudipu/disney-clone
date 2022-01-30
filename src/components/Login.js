@@ -1,3 +1,5 @@
+import React from "react";
+
 import styled from "styled-components";
 
 const Login = (props) => {
@@ -5,15 +7,18 @@ const Login = (props) => {
     <Container>
       <Content>
         <CTA>
-          <CTALogoOne src="/images/cta-logo-one.svg" alt="" />
-          <SignUp>GET ALL THERE</SignUp>
+          <CTALogoOne src="/images/cta-logo-one.svg" alt="Login" />
+          <Signup>GET ALL THERE </Signup>
           <Description>
-            Get Premier Access to Raya and the Last Dragon for an additional fee
-            with a Disney+ subscription. As of 03/26/21, the price of Disney+
-            and The Disney Bundle will increase by $1.
+            OTT also encompasses a wave of "skinny" television services that
+            offer access to live streams of linear specialty channels, similar
+            to a traditional satellite or cable TV provider, but streamed over
+            the public Internet, rather than a closed, private network with
+            proprietary equipment such as set-top boxes
           </Description>
-          <CTALogoTwo src="/images/cta-logo-two.png" alt="" />
+          <CTALogoTwo src="/images/cta-logo-two.png" alt="" />;
         </CTA>
+
         <BgImage />
       </Content>
     </Container>
@@ -27,7 +32,6 @@ const Container = styled.section`
   text-align: center;
   height: 100vh;
 `;
-
 const Content = styled.div`
   margin-bottom: 10vw;
   width: 100%;
@@ -43,15 +47,13 @@ const Content = styled.div`
 `;
 
 const BgImage = styled.div`
-  height: 100%;
-  background-position: top;
-  background-size: cover;
-  background-repeat: no-repeat;
   background-image: url("/images/login-background.jpg");
+  height: 100%;
   position: absolute;
   top: 0;
   right: 0;
   left: 0;
+
   z-index: -1;
 `;
 
@@ -70,18 +72,17 @@ const CTALogoOne = styled.img`
   width: 100%;
 `;
 
-const SignUp = styled.a`
+const Signup = styled.a`
   font-weight: bold;
   color: #f9f9f9;
   background-color: #0063e5;
   margin-bottom: 12px;
   width: 100%;
   letter-spacing: 1.5px;
-  font-size: 18px;
+  font-size: 22px;
   padding: 16.5px 0;
   border: 1px solid transparent;
   border-radius: 4px;
-
   &:hover {
     background-color: #0483ee;
   }
